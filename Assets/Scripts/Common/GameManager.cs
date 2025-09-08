@@ -21,7 +21,11 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        OpenSigninPanel();
+        var sid = PlayerPrefs.GetString("sid");
+        if(string.IsNullOrEmpty(sid))
+        {
+            OpenSigninPanel();
+        }
     }
 
     /// <summary>
