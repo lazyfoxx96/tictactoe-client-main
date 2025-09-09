@@ -14,7 +14,7 @@ public class SignupPanelController : PanelController
     [SerializeField] private TMP_InputField passwordInputField;
     [SerializeField] private TMP_InputField confirmPasswordInputField;
     [SerializeField] private TMP_InputField nicknameInputField;
-
+    
     public void OnClickConfirmButton()
     {
         string username = usernameInputField.text;
@@ -22,21 +22,21 @@ public class SignupPanelController : PanelController
         string confirmPassword = confirmPasswordInputField.text;
         string nickname = nicknameInputField.text;
 
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) 
-            || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(nickname))
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
+            string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(nickname))
         {
             Shake();
             return;
         }
-
+        
         // Confirm Password 확인
-        if(password.Equals(confirmPassword))
+        if (password.Equals(confirmPassword))
         {
             var signupData = new SignupData();
             signupData.username = username;
             signupData.password = password;
             signupData.nickname = nickname;
-
+            
             StartCoroutine(NetworkManager.Instance.Signup(signupData,
                 () =>
                 {
@@ -50,7 +50,7 @@ public class SignupPanelController : PanelController
                 {
                     if (result == 0)
                     {
-                        GameManager.Instance.OpenConfirmPanel("이미 존재하는 사용자입니다..",
+                        GameManager.Instance.OpenConfirmPanel("이미 존재하는 사용자입니다.",
                             () =>
                             {
                                 usernameInputField.text = "";
@@ -60,11 +60,15 @@ public class SignupPanelController : PanelController
                             });
                     }
                 }));
+            
         }
         else
         {
-
+            
         }
+        
+        
+        
     }
 
     public void OnClickCancelButton()
